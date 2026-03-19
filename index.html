@@ -141,6 +141,84 @@
         .copy-btn:hover {
             background: #388e3c;
         }
+        .qa-section {
+            margin-top: 30px;
+        }
+        .qa-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 15px 20px;
+            background: #f1f8e9;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: background 0.3s;
+        }
+        .qa-header:hover {
+            background: #e8f5e9;
+        }
+        .qa-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #2e7d32;
+        }
+        .qa-toggle-icon {
+            transition: transform 0.3s;
+        }
+        .qa-toggle-icon.rotated {
+            transform: rotate(180deg);
+        }
+        .qa-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .qa-content.expanded {
+            max-height: 2000px;
+            transition: max-height 0.5s ease-in;
+        }
+        .qa-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        .qa-question {
+            padding: 15px 20px;
+            background: #fafafa;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            color: #333;
+            transition: background 0.3s;
+        }
+        .qa-question:hover {
+            background: #f0f0f0;
+        }
+        .qa-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            background: white;
+            color: #555;
+            line-height: 1.6;
+        }
+        .qa-answer.expanded {
+            padding: 15px 20px;
+            max-height: 500px;
+            transition: max-height 0.5s ease-in, padding 0.3s ease-in;
+        }
+        .qa-arrow {
+            transition: transform 0.3s;
+            color: #4caf50;
+        }
+        .qa-arrow.rotated {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 <body>
@@ -196,6 +274,18 @@
         <div class="info-section">
             <img src="resources/poster.jpg" alt="Fund Poster" class="poster">
         </div>
+
+        <div class="qa-section">
+            <div class="qa-header" onclick="toggleQASection()">
+                <span class="qa-title">Frequently Asked Questions</span>
+                <svg class="qa-toggle-icon" id="qaToggleIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </div>
+            <div class="qa-content" id="qaContent">
+                <div id="qaList"></div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -212,6 +302,65 @@
                 console.error('Failed to copy: ', err);
             });
         }
+
+        // Load Q&A data from JSON file
+        async function loadQAData() {
+            try {
+                const response = await fetch('resources/qa.json');
+                const data = await response.json();
+                return data.questions;
+            } catch (error) {
+                console.error('Error loading Q&A data:', error);
+                return [];
+            }
+        }
+
+        // Render Q&A items
+        function renderQAItems(questions) {
+            const qaList = document.getElementById('qaList');
+            qaList.innerHTML = '';
+
+            questions.forEach((item, index) => {
+                const qaItem = document.createElement('div');
+                qaItem.className = 'qa-item';
+                qaItem.innerHTML = `
+                    <div class="qa-question" onclick="toggleAnswer(${index})">
+                        <span>${item.question}</span>
+                        <svg class="qa-arrow" id="arrow-${index}" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="qa-answer" id="answer-${index}">
+                        ${item.answer}
+                    </div>
+                `;
+                qaList.appendChild(qaItem);
+            });
+        }
+
+        // Toggle individual answer
+        function toggleAnswer(index) {
+            const answer = document.getElementById(`answer-${index}`);
+            const arrow = document.getElementById(`arrow-${index}`);
+            
+            answer.classList.toggle('expanded');
+            arrow.classList.toggle('rotated');
+        }
+
+        // Toggle entire Q&A section
+        function toggleQASection() {
+            const content = document.getElementById('qaContent');
+            const icon = document.getElementById('qaToggleIcon');
+            
+            content.classList.toggle('expanded');
+            icon.classList.toggle('rotated');
+        }
+
+        // Initialize Q&A section on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            const questions = await loadQAData();
+            renderQAItems(questions);
+        });
     </script>
 </body>
 </html>
