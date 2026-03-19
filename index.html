@@ -15,7 +15,7 @@
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            background: #0a0a0a;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -23,40 +23,40 @@
             padding: 20px;
         }
         .container {
-            background: white;
+            background: #1a1a1a;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             max-width: 600px;
             width: 100%;
             padding: 40px;
         }
         h1 {
-            color: #2e7d32;
+            color: #DCAE59;
             text-align: center;
             margin-bottom: 15px;
             font-size: 2.5em;
         }
         .subtitle {
             text-align: center;
-            color: #666;
+            color: #FFFFFF;
             margin-bottom: 30px;
             font-size: 1.1em;
             line-height: 1.6;
         }
         .message {
-            background: #f1f8e9;
-            border-left: 4px solid #4caf50;
+            background: rgba(220, 174, 89, 0.1);
+            border-left: 4px solid #DCAE59;
             padding: 15px 20px;
             margin-bottom: 30px;
             border-radius: 4px;
-            color: #33691e;
+            color: #FFFFFF;
             line-height: 1.6;
         }
         .info-section {
             margin-bottom: 25px;
         }
         .info-label {
-            color: #666;
+            color: #DCAE59;
             font-weight: 600;
             margin-bottom: 8px;
             font-size: 0.9em;
@@ -66,15 +66,15 @@
         .info-value {
             color: #999;
             font-size: 1.2em;
-            background: #f8f9fa;
+            background: #2a2a2a;
             padding: 15px;
             border-radius: 8px;
-            border: 2px solid #e9ecef;
+            border: 2px solid #333;
             word-break: break-all;
             flex: 1;
         }
         .info-value:not(:empty) {
-            color: #333;
+            color: #FFFFFF;
         }
         .info-value-with-icon {
             display: flex;
@@ -83,13 +83,13 @@
         }
         .copy-icon {
             cursor: pointer;
-            color: #4caf50;
+            color: #DCAE59;
             transition: transform 0.2s, color 0.2s;
             flex-shrink: 0;
         }
         .copy-icon:hover {
             transform: scale(1.1);
-            color: #388e3c;
+            color: #FFFFFF;
         }
         .bank-logo {
             max-width: 200px;
@@ -110,6 +110,9 @@
             max-width: 80px;
             height: auto;
             flex-shrink: 0;
+            background: #333;
+            padding: 10px;
+            border-radius: 8px;
         }
         .poster {
             width: 100%;
@@ -122,14 +125,14 @@
             text-align: center;
             margin-top: 30px;
             padding: 20px;
-            background: #f1f8e9;
+            background: rgba(220, 174, 89, 0.1);
             border-radius: 10px;
-            color: #2e7d32;
+            color: #DCAE59;
             font-style: italic;
         }
         .copy-btn {
-            background: #4caf50;
-            color: white;
+            background: #DCAE59;
+            color: #0a0a0a;
             border: none;
             padding: 8px 16px;
             border-radius: 5px;
@@ -139,7 +142,7 @@
             transition: background 0.3s;
         }
         .copy-btn:hover {
-            background: #388e3c;
+            background: #FFFFFF;
         }
         .qa-section {
             margin-top: 30px;
@@ -150,18 +153,18 @@
             align-items: center;
             cursor: pointer;
             padding: 15px 20px;
-            background: #f1f8e9;
+            background: rgba(220, 174, 89, 0.1);
             border-radius: 10px;
             margin-bottom: 15px;
             transition: background 0.3s;
         }
         .qa-header:hover {
-            background: #e8f5e9;
+            background: rgba(220, 174, 89, 0.2);
         }
         .qa-title {
             font-size: 1.3em;
             font-weight: 600;
-            color: #2e7d32;
+            color: #DCAE59;
         }
         .qa-toggle-icon {
             transition: transform 0.3s;
@@ -179,32 +182,32 @@
             transition: max-height 0.5s ease-in;
         }
         .qa-item {
-            border: 1px solid #e0e0e0;
+            border: 1px solid #333;
             border-radius: 8px;
             margin-bottom: 10px;
             overflow: hidden;
         }
         .qa-question {
             padding: 15px 20px;
-            background: #fafafa;
+            background: #2a2a2a;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: 500;
-            color: #333;
+            color: #FFFFFF;
             transition: background 0.3s;
         }
         .qa-question:hover {
-            background: #f0f0f0;
+            background: #333;
         }
         .qa-answer {
             padding: 0 20px;
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-out, padding 0.3s ease-out;
-            background: white;
-            color: #555;
+            background: #1a1a1a;
+            color: #FFFFFF;
             line-height: 1.6;
         }
         .qa-answer.expanded {
@@ -214,7 +217,7 @@
         }
         .qa-arrow {
             transition: transform 0.3s;
-            color: #4caf50;
+            color: #DCAE59;
         }
         .qa-arrow.rotated {
             transform: rotate(180deg);
@@ -294,7 +297,7 @@
             navigator.clipboard.writeText(text).then(() => {
                 const icon = document.querySelector(`svg.copy-icon[onclick="copyToClipboard('${elementId}')"]`);
                 const originalColor = icon.style.color;
-                icon.style.color = '#2e7d32';
+                icon.style.color = '#FFFFFF';
                 setTimeout(() => {
                     icon.style.color = originalColor;
                 }, 2000);
