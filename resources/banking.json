@@ -1,5 +1,8 @@
 {
   "iban": "EG900010011000000100072764336",
   "swift": "CIBEEGCX110",
-  "localAccount": "100072764336"
+  "localAccount": "100072764336",
+  "birthdate": "3/3/1997",
+  "fullName": "Hossam Hassan Mohamed Hassan",
+  "phone": "01123127412"
 }
