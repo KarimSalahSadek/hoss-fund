@@ -237,7 +237,7 @@
         <div class="info-section">
             <div class="info-label">IBAN Account</div>
             <div class="info-value-with-icon">
-                <div class="info-value" id="iban">EG900010011000000100072764336</div>
+                <div class="info-value" id="iban"></div>
                 <svg class="copy-icon" onclick="copyToClipboard('iban')" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -248,7 +248,7 @@
         <div class="info-section">
             <div class="info-label">SWIFT Code</div>
             <div class="info-value-with-icon">
-                <div class="info-value" id="swift">CIBEEGCX110</div>
+                <div class="info-value" id="swift"></div>
                 <svg class="copy-icon" onclick="copyToClipboard('swift')" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -261,7 +261,7 @@
             <div class="account-container">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Cib_Logo.svg" alt="CIB Bank Logo" class="bank-logo-inline">
                 <div class="info-value-with-icon">
-                    <div class="info-value" id="account">100072764336</div>
+                    <div class="info-value" id="account"></div>
                     <svg class="copy-icon" onclick="copyToClipboard('account')" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -318,6 +318,18 @@
             }
         }
 
+        // Load banking data from JSON file
+        async function loadBankingData() {
+            try {
+                const response = await fetch('resources/banking.json');
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error loading banking data:', error);
+                return {};
+            }
+        }
+
         // Render Q&A items
         function renderQAItems(questions) {
             const qaList = document.getElementById('qaList');
@@ -363,6 +375,17 @@
         document.addEventListener('DOMContentLoaded', async () => {
             const questions = await loadQAData();
             renderQAItems(questions);
+
+            const bankingData = await loadBankingData();
+            if (bankingData.iban) {
+                document.getElementById('iban').textContent = bankingData.iban;
+            }
+            if (bankingData.swift) {
+                document.getElementById('swift').textContent = bankingData.swift;
+            }
+            if (bankingData.localAccount) {
+                document.getElementById('account').textContent = bankingData.localAccount;
+            }
         });
     </script>
 </body>
